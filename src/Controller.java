@@ -1,11 +1,11 @@
-import java.lang.module.ModuleDescriptor;
 import java.util.List;
 
 /**
  * Clase que actúa como Controlador del programa.
  * Gestiona el flujo de datos entre la interfaz y el modelo.
- * * @author Adrián Sande Domínguez
- * @version 6.9
+ *
+ * @author Adrián Sande Domínguez
+ * @version 7.1
  */
 public class Controller {
 
@@ -18,75 +18,93 @@ public class Controller {
     /**
      * Punto de partida por donde arranca la aplicación.
      * Inicia el menú principal en la pantalla del usuario.
-     * * @param args Parámetros de la terminal (actualmente sin uso).
+     *
+     * @param args Parámetros de la terminal (actualmente sin uso).
      */
     public static void main(String[] args) {
+
         vistaMenu.mostrarMenu();
     }
 
     /**
      * Ordena al almacén dar de alta un vehículo nuevo y comprueba si quedó registrado.
-     * * @param modelo La marca del automóvil.
+     *
+     * @param modelo La marca del automóvil.
      * @param matricula La placa del automóvil.
-     * @return Retorna true si el proceso se completó con éxito;
-     * Retorna el valor false en caso de haber fallado.
+     * @return Retorna true si el proceso se completó con éxito.
      */
-    public boolean registrarCoche(String modelo, String matricula){
+    public boolean registrarCoche(String modelo, String matricula) {
+
         Coche nuevo = baseDatos.crearCoche(modelo, matricula);
-        if (nuevo == baseDatos.obtenerCoche(matricula)) {
-            return true;
-        }
-        return false;
+
+        return nuevo == baseDatos.obtenerCoche(matricula);
     }
 
     /**
-     * Procesa la solicitud de la pantalla para dar de baja un automóvil del parking mediante su placa.
-     * * @param matricula La placa enviada desde la sección visual.
-     * @return Los datos del objeto Coche que se ha borrado para decidir qué notificar,
-     * o un valor nulo si el automóvil no está en el sistema.
+     * Procesa la solicitud de la pantalla para dar de baja un automóvil.
+     *
+     * @param matricula La placa enviada desde la sección visual.
+     * @return El coche eliminado o null si no existe.
      */
     public Coche eliminarCoche(String matricula) {
-        Coche cocheQuitado = baseDatos.quitarCoche(matricula);
-        return cocheQuitado;
+
+        return baseDatos.quitarCoche(matricula);
     }
 
     /**
-     * Procesa la solicitud de la pantalla para simular el desplazamiento en kilómetros de un automóvil.
-     * * @param matricula La placa del automóvil que se va a poner en movimiento.
-     * @return El objeto Coche con sus valores actualizados, o un valor nulo si no se localiza.
-     */
-    public Coche actualizarKilometros(String matricula) {
-        Coche cocheActualizado = baseDatos.hacerAvanzarCoche(matricula);
-        return cocheActualizado;
-    }
-
-    /**
-     * Solicita al almacén de datos modificar el velocímetro de un vehículo.
-     * * @param matricula La placa del vehículo que se quiere modificar.
-     * @param nuevaVelocidad El nuevo valor que registrará el velocímetro.
-     * @return El ritmo de circulación final.
-     * @throws NullPointerException En caso de introducir una placa que no pertenezca a ningún vehículo guardado.
+     * Solicita al almacén modificar el velocímetro de un vehículo.
+     *
+     * @param matricula La placa del vehículo.
+     * @param nuevaVelocidad Nueva velocidad.
+     * @return Velocidad final.
      */
     public int modificarVelocidad(String matricula, Integer nuevaVelocidad) {
-        int velocidadResultante = baseDatos.cambiarVelocidad(matricula, nuevaVelocidad);
-        return velocidadResultante;
+
+        return baseDatos.cambiarVelocidad(matricula, nuevaVelocidad);
     }
 
     /**
-     * Consulta en el almacén de datos el ritmo de circulación de un vehículo.
-     * * @param matricula La placa del vehículo.
-     * @return El ritmo actual de circulación expresado en kilómetros por hora.
-     * @throws NullPointerException En caso de introducir una placa que no pertenezca a ningún vehículo guardado.
+     * Consulta la velocidad actual de un vehículo.
+     *
+     * @param matricula Matrícula del vehículo.
+     * @return Velocidad actual.
      */
     public int obtenerVelocidad(String matricula) {
+
         return baseDatos.obtenerVelocidad(matricula);
     }
 
     /**
-     * Trae la colección completa de automóviles que están dentro del estacionamiento desde el modelo.
-     * * @return Una colección tipo List que agrupa todos los elementos Coche del estacionamiento.
+     * Ordena avanzar el coche una cantidad de metros.
+     *
+     * @param matricula Matrícula del coche.
+     * @param metros Metros recorridos.
+     * @return El coche actualizado.
+     */
+    public Coche avanzarMetros(String matricula, double metros) {
+
+        return baseDatos.avanzarMetros(matricula, metros);
+    }
+
+    /**
+     * Ordena cargar gasolina a un coche.
+     *
+     * @param matricula Matrícula del coche.
+     * @param litros Litros a cargar.
+     * @return El coche actualizado.
+     */
+    public Coche cargarGasolina(String matricula, double litros) {
+
+        return baseDatos.cargarGasolina(matricula, litros);
+    }
+
+    /**
+     * Trae la colección completa de automóviles del parking.
+     *
+     * @return Lista completa de coches.
      */
     public List<Coche> obtenerListaCoches() {
+
         return baseDatos.obtenerListaParking();
     }
 }

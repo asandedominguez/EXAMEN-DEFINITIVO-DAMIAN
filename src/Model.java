@@ -103,19 +103,13 @@ public class Model {
         Coche aux = obtenerCoche(matricula);
 
         if (aux != null) {
-
             aux.metros += metrosAvanzados;
-
             aux.kilometros = (int) (aux.metros / 1000);
-
-            // Consumo simple basado en la velocidad
             aux.gasolina -= (aux.velocidad * 0.01);
-
             if (aux.gasolina < 0) {
                 aux.gasolina = 0;
             }
         }
-
         return aux;
     }
 
@@ -127,14 +121,10 @@ public class Model {
      * @return El coche actualizado, o null si no existe.
      */
     public Coche cargarGasolina(String matricula, double litros) {
-
         Coche aux = obtenerCoche(matricula);
-
         if (aux != null) {
-
             aux.gasolina += litros;
         }
-
         return aux;
     }
 

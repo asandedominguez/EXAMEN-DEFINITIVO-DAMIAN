@@ -27,7 +27,7 @@ public class Controller {
     }
 
     /**
-     * Ordena al almacén dar de alta un vehículo nuevo y comprueba si quedó registrado.
+     * Ordena al almacén, da de alta un vehículo nuevo y comprueba si quedó registrado.
      *
      * @param modelo La marca del automóvil.
      * @param matricula La placa del automóvil.
